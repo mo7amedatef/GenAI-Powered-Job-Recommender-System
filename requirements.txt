@@ -4,3 +4,5 @@ groq
 pymupdf
 python-dotenv
 apify-client
+langchain-mcp-adapters
+mcp

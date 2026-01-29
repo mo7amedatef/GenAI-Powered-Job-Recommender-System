@@ -8,6 +8,7 @@ dependencies = [
     "apify-client>=2.4.0",
     "fitz>=0.0.1.dev2",
     "groq>=1.0.0",
+    "mcp>=1.26.0",
     "openai>=2.16.0",
     "pymupdf>=1.26.7",
     "python-dotenv>=1.2.1",

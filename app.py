@@ -13,7 +13,7 @@ if uploaded_file:
         resume_text = extract_text_from_pdf(uploaded_file)
 
     with st.spinner("Summarizing your resume..."):
-        summary = ask_openai(f"Summarize this resume highlighting the skills, edcucation, and experience: \n\n{resume_text}", max_tokens=500)
+        summary = ask_openai(f"Summarize this resume highlighting the skills, education, and experience: \n\n{resume_text}", max_tokens=500)
 
     
     with st.spinner("Finding skill Gaps..."):

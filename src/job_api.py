@@ -25,7 +25,8 @@ def fetch_linkedin_jobs(search_query, location = "Egypt", rows=60):
 def fetch_naukri_jobs(search_query, location = "india", rows=60):
     run_input = {
         "keyword": search_query,
-        "maxJobs": 60,
+        "location": location,
+        "maxJobs": rows,
         "freshness": "all",
         "sortBy": "relevance",
         "experience": "all",

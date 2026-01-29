@@ -33,7 +33,7 @@ This project is an AI-powered job recommender system that helps users find relev
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/GenAI-Powered-Job-Recommender-System.git
+    git clone https://github.com/mo7amedatef/GenAI-Powered-Job-Recommender-System.git
     cd GenAI-Powered-Job-Recommender-System
     ```
 

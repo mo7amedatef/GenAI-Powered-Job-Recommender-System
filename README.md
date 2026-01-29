@@ -11,6 +11,7 @@ This project is an AI-powered job recommender system that helps users find relev
     -   Generate a career roadmap with suggestions for skills to learn and certifications to obtain.
 -   **Job Recommendations:** Fetches job listings from LinkedIn and Naukri based on the user's profile.
 -   **Web Interface:** A user-friendly web interface built with Streamlit.
+-   **MCP Server:** Exposes job search tools via the Model Context Protocol (MCP).
 
 ## How it Works
 
@@ -28,6 +29,7 @@ This project is an AI-powered job recommender system that helps users find relev
 -   **Job Scraping:** [Apify API](https://apify.com/)
 -   **PDF Processing:** [PyMuPDF](https://pymupdf.readthedocs.io/)
 -   **Configuration:** [python-dotenv](https://pypi.org/project/python-dotenv/)
+-   **MCP:** [Model Context Protocol](https://modelcontextprotocol.io/)
 
 ## Setup and Installation
 
@@ -73,3 +75,11 @@ This project requires API keys for Groq and Apify.
 
 3.  Open your web browser and navigate to the URL provided by Streamlit (usually `http://localhost:8501`).
 4.  Upload your resume and get your job recommendations!
+
+### Running the MCP Server
+
+To run the MCP server for integration with MCP clients:
+
+```bash
+python mcp_server.py
+```

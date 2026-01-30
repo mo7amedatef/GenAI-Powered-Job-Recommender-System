@@ -17,8 +17,8 @@ This project is an AI-powered job recommender system that helps users find relev
 
 1.  **Resume Upload:** The user uploads their resume in PDF format through the Streamlit web interface.
 2.  **Text Extraction:** The application extracts the text from the PDF using PyMuPDF.
-3.  **AI Analysis:** The extracted text is sent to the Groq API (using a Llama 3.3 70B model) to generate a resume summary, identify skill gaps, and create a career roadmap. The LLM is also used to extract relevant keywords for a job search.
-4.  **Job Scraping:** The application uses the Apify API to search for jobs on LinkedIn and Naukri using the keywords extracted in the previous step.
+3.  **Concurrent AI Analysis:** The extracted text is sent to the Groq API (using a Llama 3.3 70B model) to generate a resume summary, identify skill gaps, and create a career roadmap. These API calls are made concurrently to improve performance. The LLM is also used to extract relevant keywords for a job search.
+4.  **Concurrent Job Scraping:** The application uses the Apify API to search for jobs on LinkedIn and Naukri using the keywords extracted in the previous step. These job scraping tasks are run in parallel to reduce waiting time.
 5.  **Display Results:** The resume analysis and job recommendations are displayed to the user.
 
 ## Technologies Used
@@ -28,6 +28,7 @@ This project is an AI-powered job recommender system that helps users find relev
 -   **AI/LLM:** [Groq API](https://groq.com/) (Llama 3.3 70B model)
 -   **Job Scraping:** [Apify API](https://apify.com/)
 -   **PDF Processing:** [PyMuPDF](https://pymupdf.readthedocs.io/)
+-   **Concurrency:** [concurrent.futures](https://docs.python.org/3/library/concurrent.futures.html)
 -   **Configuration:** [python-dotenv](https://pypi.org/project/python-dotenv/)
 -   **MCP:** [Model Context Protocol](https://modelcontextprotocol.io/)
 

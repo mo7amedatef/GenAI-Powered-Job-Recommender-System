@@ -1,6 +1,7 @@
 import streamlit as st
 from src.helper import extract_text_from_pdf, ask_openai
 from src.job_api import fetch_linkedin_jobs, fetch_naukri_jobs
+import concurrent.futures
 
 st.set_page_config(page_title="Job Recommender", layout="wide")
 st.title("AI Job Recommender")
@@ -12,17 +13,16 @@ if uploaded_file:
     with st.spinner("Extracting text from your resume..."):
         resume_text = extract_text_from_pdf(uploaded_file)
 
-    with st.spinner("Summarizing your resume..."):
-        summary = ask_openai(f"Summarize this resume highlighting the skills, education, and experience: \n\n{resume_text}", max_tokens=500)
+    with st.spinner("Analyzing your resume..."):
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            summary_future = executor.submit(ask_openai, f"Summarize this resume highlighting the skills, education, and experience: \n\n{resume_text}", 500)
+            gaps_future = executor.submit(ask_openai, f"Analyze this resume and highlight missing skills, certifications, and experiences needed for better job opportunities: \n\n{resume_text}", 400)
+            roadmap_future = executor.submit(ask_openai, f"Based on this resume, suggest a future roadmap to improve this person's career prospects (Skill to learn, certification needed, industry exposure): \n\n{resume_text}", 400)
+            
+            summary = summary_future.result()
+            gaps = gaps_future.result()
+            roadmap = roadmap_future.result()
 
-    
-    with st.spinner("Finding skill Gaps..."):
-        gaps = ask_openai(f"Analyze this resume and highlight missing skills, certifications, and experiences needed for better job opportunities: \n\n{resume_text}", max_tokens=400)
-
-
-    with st.spinner("Creating Future Roadmap..."):
-        roadmap = ask_openai(f"Based on this resume, suggest a future roadmap to improve this person's career prospects (Skill to learn, certification needed, industry exposure): \n\n{resume_text}", max_tokens=400)
-    
     # Display nicely formatted results
     st.markdown("---")
     st.header("Resume Summary")
@@ -51,8 +51,12 @@ if uploaded_file:
         st.success(f"Extracted Job Keywords: {search_keywords_clean}")
 
         with st.spinner("Fetching jobs from LinkedIn and Naukri..."):
-            linkedin_jobs = fetch_linkedin_jobs(search_keywords_clean, rows=60)
-            naukri_jobs = fetch_naukri_jobs(search_keywords_clean, rows=60)
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                linkedin_jobs_future = executor.submit(fetch_linkedin_jobs, search_keywords_clean, rows=60)
+                naukri_jobs_future = executor.submit(fetch_naukri_jobs, search_keywords_clean, rows=60)
+
+                linkedin_jobs = linkedin_jobs_future.result()
+                naukri_jobs = naukri_jobs_future.result()
 
 
         st.markdown("---")
